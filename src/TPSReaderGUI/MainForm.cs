@@ -141,8 +141,8 @@ namespace TPSReaderGUI
 			
 			string tableName = tableList.SelectedItems[0].ToString();
 			LoadFieldData(tableName);
-			viewDataTb.Enabled = true;
-			exportToCSVBtn.Enabled = true;
+			viewDataToolStripMenuItem.Enabled = true;
+			exportToCSVToolStripMenuItem.Enabled = true;
 			
 		}
 		private void LoadFieldData(string tableName){
@@ -173,13 +173,6 @@ namespace TPSReaderGUI
 		void ViewDataTbClick(object sender, EventArgs e)
 		{
 			
-			if ( tableDataBW.IsBusy )
-				return;
-			
-			tableDataBW.RunWorkerAsync(_selectedTableID);
-			
-			_pleaseWait = new PleaseWaitForm();
-			_pleaseWait.ShowDialog();
 		}
 		
 		
@@ -278,22 +271,42 @@ namespace TPSReaderGUI
 		}
 		void ExportToCSVBtnClick(object sender, EventArgs e)
 		{
-			if ( exportBW.IsBusy )
-				return;
-			try{
-				System.IO.FileInfo fi = new System.IO.FileInfo(_tpsFilename);
-				exportFolder.SelectedPath = fi.DirectoryName;
-			}catch(Exception){}
-			if ( exportFolder.ShowDialog() != DialogResult.OK )
-				return;
 			
-		exportBW.RunWorkerAsync(new object[] {_selectedTableID, exportFolder.SelectedPath});
-			
-			_pleaseWait = new PleaseWaitForm();
-			_pleaseWait.ShowDialog();
 		}
-		#endregion
-		
-		
-	}
+
+        #endregion
+
+        private void viewDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (tableDataBW.IsBusy)
+                return;
+
+            tableDataBW.RunWorkerAsync(_selectedTableID);
+
+            _pleaseWait = new PleaseWaitForm();
+            _pleaseWait.ShowDialog();
+
+        }
+
+        private void exportToCSVToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (exportBW.IsBusy)
+                return;
+            try
+            {
+                System.IO.FileInfo fi = new System.IO.FileInfo(_tpsFilename);
+                exportFolder.SelectedPath = fi.DirectoryName;
+            }
+            catch (Exception) { }
+            if (exportFolder.ShowDialog() != DialogResult.OK)
+                return;
+
+            exportBW.RunWorkerAsync(new object[] { _selectedTableID, exportFolder.SelectedPath });
+
+            _pleaseWait = new PleaseWaitForm();
+            _pleaseWait.ShowDialog();
+        }
+
+
+    }
 }
