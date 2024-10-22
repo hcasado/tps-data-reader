@@ -78,12 +78,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TPSReader\TPSReader.csproj">
-      <Project>{CA021238-2FA1-441C-8B89-DA275E2A79F8}</Project>
-      <Name>TPSReader</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="DataTableViewerForm.resx">
       <DependentUpon>DataTableViewerForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -96,6 +90,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TPSReaderCore\TPSReaderCore.csproj">
+      <Project>{0409728f-667b-46b7-abb0-53de7ad7e93a}</Project>
+      <Name>TPSReaderCore</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
 </Project>
